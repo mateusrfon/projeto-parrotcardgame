@@ -11,7 +11,7 @@ Start();
 
 function Start() {
     while (cards > 14 || cards < 4 || (cards % 2) !== 0) {
-        cards = prompt('Com quantas cartas (de 4 à 14 cartas) deseja jogar?');
+        cards = Number(prompt('Com quantas cartas (de 4 à 14 cartas) deseja jogar?'));
     }
     DrawCards();
 }
@@ -21,8 +21,8 @@ function DrawCards() {
     for (i = 0; i < cards; i++) {
         table.innerHTML += `<div class="card card${i}" onclick="FlipCard('.card${i}')">
         <div class="front-face face"><img src="images/front.png" alt=""></div>
-        <div class="back-face face"><img src="images/${images[i]}" alt=""></div>
-        </div>`;
+        <div class="back-face face"><img src="images/metalparrot.gif" alt=""></div> 
+        </div>`; //${images[i]}
     }
 }
 
@@ -45,8 +45,8 @@ function CardCheck(card) {
         cardClick = 0;
         if (firstCard.querySelector('.back-face').innerHTML === secondCard.querySelector('.back-face').innerHTML) {
             points += 2;
-            alert(points)
             //if points = cards : WIN -> "Você ganhou em ${moves} jogadas"
+            WinCheck();
             /*Bônus 2 = perguntas se gostaria de reiniciar a partida, se sim, 
             zerar variáveis, zerar container e chamar a função start*/
         } else {
@@ -60,4 +60,11 @@ function UnFlip() {
     firstCard.querySelector('.back-face').classList.remove('flip')
     secondCard.querySelector('.front-face').classList.remove('flip')
     secondCard.querySelector('.back-face').classList.remove('flip')
+}
+
+function WinCheck() {
+    if (points === cards) {
+        points /= 2;
+        alert(`Você ganhou em ${points} jogadas`);
+    }
 }
