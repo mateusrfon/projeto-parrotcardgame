@@ -1,11 +1,13 @@
 let cards;
-let cardClick = 0;
+let cardClick = false;
 let moves = 0;
 let firstCard;
 let secondCard;
 let points = 0;
 let ready = true;
-const images = ['bobrossparrot.gif','explodyparrot.gif','fiestaparrot.gif','metalparrot.gif','revertitparrot.gif','tripletsparrot.gif','unicornparrot.gif']
+let parrots = [];
+const images = ['bobrossparrot.gif','explodyparrot.gif','fiestaparrot.gif',
+'metalparrot.gif','revertitparrot.gif','tripletsparrot.gif','unicornparrot.gif']
 
 Start();
 
@@ -20,14 +22,18 @@ function Start() {
 function DrawCards() {
     const table = document.querySelector('.container')
     for (i = 0; i < (cards/2); i++) {
-        table.innerHTML += `<div class="card" onclick="FlipCard(this)">
+        parrots.push(`<div class="card" onclick="FlipCard(this)">
         <div class="front-face face"><img src="images/front.png" alt=""></div>
         <div class="back-face face"><img src="images/${images[i]}" alt=""></div> 
-        </div>` + 
-        `<div class="card" onclick="FlipCard(this)">
+        </div>`);
+        parrots.push(`<div class="card" onclick="FlipCard(this)">
         <div class="front-face face"><img src="images/front.png" alt=""></div>
         <div class="back-face face"><img src="images/${images[i]}" alt=""></div> 
-        </div>`;
+        </div>`);
+    }
+    parrots.sort(comparador);
+    for (i=0; i < cards; i++) {
+        table.innerHTML += parrots[i];
     }
 }
 
@@ -43,14 +49,14 @@ function FlipCard(seletor) {
 }
 
 function CardCheck(card) {
-    cardClick++;
     moves++;
-    if (cardClick === 1) {
+    if (!cardClick) {
         firstCard = card;
+        cardClick = true;
         ready = true;        
     } else {
         secondCard = card;
-        cardClick = 0;
+        cardClick = false;
         if (firstCard.querySelector('.back-face').innerHTML === secondCard.querySelector('.back-face').innerHTML) {
             points += 2;
             WinCheck();
@@ -72,9 +78,12 @@ function UnFlip() {
 
 function WinCheck() {
     if (points === cards) {
-        moves /= 2;
-        setTimeout('alert(`Você ganhou em ${moves} jogadas`)', 100);
+        setTimeout('alert(`Você ganhou em ${moves/2} jogadas (${moves} cartas viradas)`)', 100);
     } else {
         ready = true;
     }
+}
+
+function comparador() { 
+	return Math.random() - 0.5; 
 }
