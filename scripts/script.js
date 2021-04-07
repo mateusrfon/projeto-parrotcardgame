@@ -20,25 +20,24 @@ function Start() {
 function DrawCards() {
     const table = document.querySelector('.container')
     for (i = 0; i < (cards/2); i++) {
-        table.innerHTML += `<div class="card card${i}" onclick="FlipCard('.card${i}')">
+        table.innerHTML += `<div class="card" onclick="FlipCard(this)">
         <div class="front-face face"><img src="images/front.png" alt=""></div>
         <div class="back-face face"><img src="images/${images[i]}" alt=""></div> 
         </div>` + 
-        `<div class="card card${(i + cards/2)}" onclick="FlipCard('.card${(i + cards/2)}')">
+        `<div class="card" onclick="FlipCard(this)">
         <div class="front-face face"><img src="images/front.png" alt=""></div>
         <div class="back-face face"><img src="images/${images[i]}" alt=""></div> 
         </div>`;
     }
 }
 
-function FlipCard(indice) {
-    if (ready === true) {
-        const getCard = document.querySelector(indice);
-        if (getCard.querySelector('.flip') == null) {
+function FlipCard(seletor) {
+    if (ready) {
+        if (!seletor.querySelector('.front-face').classList.contains('flip')) {
             ready = false;
-            getCard.querySelector('.front-face').classList.add('flip');
-            getCard.querySelector('.back-face').classList.add('flip');
-            CardCheck(getCard);
+            seletor.querySelector('.front-face').classList.add('flip');
+            seletor.querySelector('.back-face').classList.add('flip');
+            CardCheck(seletor);
         }
     }
 }
@@ -55,7 +54,6 @@ function CardCheck(card) {
         if (firstCard.querySelector('.back-face').innerHTML === secondCard.querySelector('.back-face').innerHTML) {
             points += 2;
             WinCheck();
-            ready = true;
             /*Bônus 2 = perguntas se gostaria de reiniciar a partida, se sim, 
             zerar variáveis, zerar container e chamar a função start*/
         } else {
@@ -76,5 +74,7 @@ function WinCheck() {
     if (points === cards) {
         moves /= 2;
         setTimeout('alert(`Você ganhou em ${moves} jogadas`)', 100);
+    } else {
+        ready = true;
     }
 }
