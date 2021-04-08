@@ -8,6 +8,8 @@ let ready = true;
 let parrots = [];
 const images = ['bobrossparrot.gif','explodyparrot.gif','fiestaparrot.gif',
 'metalparrot.gif','revertitparrot.gif','tripletsparrot.gif','unicornparrot.gif']
+let time = 0;
+let timer;
 
 Start();
 
@@ -17,6 +19,7 @@ function Start() {
         cards = Number(prompt('Com quantas cartas (de 4 à 14 cartas) deseja jogar?'));
     }
     DrawCards();
+    timer = setInterval('Timer()', 1000);
 }
 
 function DrawCards() {
@@ -31,7 +34,7 @@ function DrawCards() {
         <div class="back-face face"><img src="images/${images[i]}" alt=""></div> 
         </div>`);
     }
-    parrots.sort(comparador);
+    parrots.sort(Comparador);
     for (i=0; i < cards; i++) {
         table.innerHTML += parrots[i];
     }
@@ -78,12 +81,18 @@ function UnFlip() {
 
 function WinCheck() {
     if (points === cards) {
-        setTimeout('alert(`Você ganhou em ${moves/2} jogadas (${moves} cartas viradas)`)', 100);
+        setTimeout('alert(`Você ganhou em ${moves/2} jogadas (${moves} cartas viradas) e em ${time} segundos`)', 100);
+        clearInterval(timer);
     } else {
         ready = true;
     }
 }
 
-function comparador() { 
+function Comparador() { 
 	return Math.random() - 0.5; 
+}
+
+function Timer() {
+    time++;
+    document.querySelector('.timer').innerHTML = time + 's';
 }

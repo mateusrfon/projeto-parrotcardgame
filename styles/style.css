@@ -8,7 +8,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    line-height: 42px;
+    line-height: 65px;
 }
 
 h1 {
@@ -60,13 +60,34 @@ h1 {
     height: 100px;
 }
 
+.timer {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    color: black;
+    font-size: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
 @media (max-width: 600px) {
     body {
         font-size: 36px;
         padding-left: 45px;
         padding-right: 45px;
+        line-height: 42px;
     }
     .container {
         flex-direction: column;
+    }
+    .timer {
+        top: 10px;
+        right: 10px;
+        font-size: 25px;
+    }
+    .hidden {
+        display: initial;
     }
 }
