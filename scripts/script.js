@@ -98,6 +98,7 @@ function ReStart() {
         points = 0;
         ready = true;
         parrots = [];
+        document.querySelector('.timer').innerHTML = '0s';
         document.querySelector('.container').innerHTML = '';
         Start();
     }
