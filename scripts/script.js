@@ -1,4 +1,4 @@
-let cards;
+let cards = 0;
 let cardClick = false;
 let moves = 0;
 let firstCard;
@@ -83,8 +83,23 @@ function WinCheck() {
     if (points === cards) {
         setTimeout('alert(`Você ganhou em ${moves/2} jogadas (${moves} cartas viradas) e em ${time} segundos`)', 100);
         clearInterval(timer);
+        setTimeout('ReStart()', 100);
     } else {
         ready = true;
+    }
+}
+
+function ReStart() {
+    const win = prompt('Gostaria de iniciar outra partida? (sim || não)');
+    if (win === 'sim') {
+        cards = 0;
+        time = 0;
+        moves = 0;
+        points = 0;
+        ready = true;
+        parrots = [];
+        document.querySelector('.container').innerHTML = '';
+        Start();
     }
 }
 
