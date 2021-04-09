@@ -19,7 +19,7 @@ function Start() {
         cards = Number(prompt('Com quantas cartas (de 4 à 14 cartas) deseja jogar?'));
     }
     DrawCards();
-    timer = setInterval('Timer()', 1000);
+    timer = setInterval(Timer, 1000);
 }
 
 function DrawCards() {
@@ -66,7 +66,7 @@ function CardCheck(card) {
             /*Bônus 2 = perguntas se gostaria de reiniciar a partida, se sim, 
             zerar variáveis, zerar container e chamar a função start*/
         } else {
-            setTimeout('UnFlip()', 1000);
+            setTimeout(UnFlip, 1000);
         }        
     }
 }
@@ -83,7 +83,7 @@ function WinCheck() {
     if (points === cards) {
         setTimeout('alert(`Você ganhou em ${moves/2} jogadas (${moves} cartas viradas) e em ${time} segundos`)', 100);
         clearInterval(timer);
-        setTimeout('ReStart()', 100);
+        setTimeout(ReStart, 100);
     } else {
         ready = true;
     }
